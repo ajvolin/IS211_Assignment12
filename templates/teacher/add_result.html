@@ -22,7 +22,7 @@
                             <option{{ " selected" if not errors }} value="">Student (Select one)</option>
                             {% if students %}
                             {% for student in students %}
-                            <option{{ " selected" if errors and errors.input.student_id == student.id }} value="{{ student.id }}">{{ student.last_name }}, {{ student.first_name }} - {{ student.id }}</option>
+                            <option{{ " selected" if errors and errors.input.student_id == student.id|string }} value="{{ student.id }}">{{ student.last_name }}, {{ student.first_name }} - {{ student.id }}</option>
                             {% endfor %}
                             {% endif %}
                         </select>
@@ -33,7 +33,7 @@
                             <option{{ " selected" if not errors }} value="">Quiz (Select one)</option>
                             {% if quizzes %}
                             {% for quiz in quizzes %}
-                            <option{{ " selected" if errors and errors.input.quiz_id == quiz.id }} value="{{ quiz.id }}">{{ quiz.quiz_subject }} - {{ quiz.quiz_date }}</option>
+                            <option{{ " selected" if errors and errors.input.quiz_id == quiz.id|string }} value="{{ quiz.id }}">{{ quiz.quiz_subject }} - {{ quiz.quiz_date }}</option>
                             {% endfor %}
                             {% endif %}
                         </select>

@@ -9,6 +9,7 @@ __email__ = 'Adam.Volin56@spsmail.cuny.edu'
 from flask import Flask, render_template, request, session, redirect, abort
 from db import init_db, query, insert, delete, close_connection
 from sqlite3 import IntegrityError
+import datetime
 
 app = Flask(__name__)
 # Set a secret key for Flask to use to encrypt the session,
@@ -384,11 +385,23 @@ def post_add_quiz():
         if (form["question_count"].strip() == ""):
             validation_errors["messages"].update(
                 {"question_count": "# of Questions is a required field."})
+        else:
+            try:
+               int(form["question_count"])
+            except ValueError:
+                validation_errors["messages"].update(
+                    {"question_count": "Please enter a valid number."})
 
         # Validate quiz_date input field
         if (form["quiz_date"].strip() == ""):
             validation_errors["messages"].update(
                 {"quiz_date": "Quiz Date is a required field."})
+        else:
+            try:
+                datetime.datetime.strptime(form["quiz_date"], '%Y-%m-%d')
+            except ValueError:
+                validation_errors["messages"].update(
+                    {"quiz_date": "A date in YYYY-MM-DD format is required."})
 
         # If there are messages in the dictionary, add the original input
         if validation_errors["messages"]:
@@ -611,16 +624,36 @@ def post_add_result():
         if (form["student_id"].strip() == ""):
             validation_errors["messages"].update(
                 {"student_id": "Please select a student from the list."})
+        else:
+            try:
+               int(form["student_id"])
+            except ValueError:
+                validation_errors["messages"].update(
+                    {"student_id": "Please select a student from the list."})
 
         # Validate quiz_id input field
         if (form["quiz_id"].strip() == ""):
             validation_errors["messages"].update(
                 {"quiz_id": "Please select a quiz from the list."})
+        else:
+            try:
+               int(form["quiz_id"])
+            except ValueError:
+                validation_errors["messages"].update(
+                    {"quiz_id": "Please select a quiz from the list."})
 
         # Validate score input field
         if (form["score"].strip() == ""):
             validation_errors["messages"].update(
                 {"score": "Grade is a required field."})
+        else:
+            try:
+               score = int(form["score"])
+               if score < 0 or score > 100:
+                   raise ValueError
+            except ValueError:
+                validation_errors["messages"].update(
+                    {"score": "Please enter a number between 0 and 100."})
 
         # If there are messages in the dictionary, add the original input
         if validation_errors["messages"]:

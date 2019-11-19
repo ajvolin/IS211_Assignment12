@@ -387,7 +387,8 @@ def post_add_quiz():
                 {"question_count": "# of Questions is a required field."})
         else:
             try:
-               int(form["question_count"])
+               if int(form["question_count"]) < 0:
+                   raise ValueError
             except ValueError:
                 validation_errors["messages"].update(
                     {"question_count": "Please enter a valid number."})

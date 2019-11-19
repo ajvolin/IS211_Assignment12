@@ -47,10 +47,10 @@
         <form action="/login" method="post" autocomplete="off" class="form-signin">
             <h3 class="mb-3 text-center"><i class="fa fa-fw fa-sign-in"></i>Login</h3>
             <label for="username" class="sr-only">Username</label>
-            <input class="form-control " id="username" name="username" type="text" value="" placeholder="Username" data-toggle="tooltip" data-placement="top" title="Enter your username." autocomplete="off" autofocus required />
+            <input class="form-control" id="username" name="username" type="text" value="" placeholder="Username" title="Enter your username." autocomplete="off" autofocus required />
 
             <label for="password" class="sr-only">Password</label>
-            <input class="form-control " id="password" name="password" type="password" value="" placeholder="Password" autocomplete="off" required />
+            <input class="form-control" id="password" name="password" type="password" value="" placeholder="Password" title="Enter your password." autocomplete="off" required />
 
             <button class="btn btn-large btn-success btn-block mt-3" id="submitBtn" type="submit" name="submit">Login</button>
         </form>
@@ -61,8 +61,11 @@
 <script>
     $(document).ready(function(){
         $("#submitBtn").on('click', function(e){
-            $("form.form-signin").hide();
-            $("#loading").show();
+            if ($("#username").val() !== "" && $("#password").val() !== "")
+            {
+                $("#loading").show();
+                $("form.form-signin").hide();
+            }
         });
     });
 </script>

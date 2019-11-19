@@ -5,6 +5,11 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>{% block title %}{% endblock %} :: Student Quiz Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/2f57198f21.js"></script>
@@ -23,7 +28,7 @@
                 {% block navbar_extra %}{% endblock %}
             </div>
             {% if "auth" in session %}
-            <a class="float-right btn btn-sm btn-warning" href="/logout"><i class="fa fa-fw fa-sign-out"></i>Logout {{ session["auth"]["username"] }}</a>
+            <a class="float-right btn btn-sm btn-warning" href="/logout"><i class="fa fa-fw fa-sign-out"></i>Logout {{ session["auth"]["first_name"]  }} {{ session["auth"]["last_name"] }}</a>
             {% endif %}
         </div>
     </nav>
@@ -84,22 +89,12 @@
                 });
             }
 
-            $("#delete-btn").on("click", function(e){
+            $(".delete-btn").on("click", function(e){
                 e.preventDefault();
                 var el = $(this)
                 callback = function(result){
                     if (result)
                         el.parent().submit();
-                }
-                confirm(el, callback);
-            });
-
-            $(".delete-link").on("click", function(e){
-                e.preventDefault();
-                var el = $(this)
-                callback = function(result){
-                    if (result)
-                        window.attr.href = el.attr("href");
                 }
                 confirm(el, callback);
             });

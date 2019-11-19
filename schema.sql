@@ -22,5 +22,6 @@ CREATE TABLE IF NOT EXISTS  quizzes (
 CREATE TABLE IF NOT EXISTS student_quiz (
     student_id INTEGER NOT NULL REFERENCES students(id),
     quiz_id INTEGER NOT NULL REFERENCES quizzes(id),
-    score INTEGER NOT NULL
+    score INTEGER NOT NULL,
+    PRIMARY KEY (student_id, quiz_id)
 );

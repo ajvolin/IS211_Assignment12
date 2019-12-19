@@ -101,6 +101,7 @@ def init_db():
     students = query("select * from students")
     quizzes = query("select * from quizzes")
     quiz_results = query("select * from student_quiz")
+    users = query("select * from users")
 
     if not students:
         insert("Insert into students values (?, ?, ?)",
@@ -116,3 +117,8 @@ def init_db():
         insert("Insert into student_quiz values (?, ?, ?)",
                         (10000001, 1, 85))
         print("Loaded dummy quiz results into hw13.db")
+
+    if not users:
+        insert("Insert into users values (?, ?, ?, ?, ?)",
+                        (1, "Teacher", "Admin", "admin", "password"))
+        print("Loaded dummy users into hw13.db")
